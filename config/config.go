@@ -1,6 +1,8 @@
 package config
 
 import (
+	"errors"
+
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
@@ -40,8 +42,19 @@ type (
 
 // NewConfig returns app config.
 func NewConfig() (Config, error) {
-	cfg := &Config{}
-	err := cleanenv.ReadEnv(cfg)
+	var errFile error
 
-	return *cfg, err
+	cfg := &Config{}
+	errEnv := cleanenv.ReadEnv(cfg)
+
+	// fallback to .env file
+	if errEnv != nil {
+		errFile = cleanenv.ReadConfig(".env", cfg)
+	}
+
+	if errFile != nil {
+		return *cfg, errors.Join(errEnv, errFile)
+	}
+
+	return *cfg, nil
 }
