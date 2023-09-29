@@ -13,11 +13,11 @@ help: ## Display this help screen
 
 compose-up: ### Run docker compose
 		docker-compose up --build -d
-.PHONY: run 
+.PHONY: compose-up
 
 compose-down: ### Shut down docker compose
 		docker-compose down --remove-orphans
-.PHONY: run 
+.PHONY: compose-down
 
 linter-golangci: ### Check by golangci linter
 	golangci-lint run
