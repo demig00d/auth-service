@@ -7,7 +7,7 @@
 ## Запуск
 
 ```bash
-mv .env.template .env
+mv env.template .env
 ```
 
 ```bash
@@ -31,5 +31,5 @@ make test
   * принимает GUID
   * возвращает пару Access, Refresh токенов
 * `POST /refresh`
-  * принимает Refresh токен
+  * принимает GUID и Refresh токен
   * возвращает пару Access, Refresh токенов
